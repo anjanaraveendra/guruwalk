@@ -1,0 +1,49 @@
+<a href="<%= new_tour_path %>" class="btn btn-info" role="button">New Tour</a>
+<%= form_tag tours_path, method: "get" do %>
+  <%#=# select "filter", "category", options_for_select(), {prompt: 'Select Category'} %>
+
+  <%= select_tag("filter", options_for_select([['Tour Reviews', 'tour_reviews'], ['Date of Creation', 'date_of_creation']], params[:filter])) %>
+
+  <%= submit_tag "Filter", name: nil %>
+<% end %>
+
+<div style="margin-left: 20%">
+  <% @tours.each do |tour| %>
+    <div class="card" style="width: 40rem; text-align: center;">
+      <%= image_tag tour.photo, :class => "img-circle", :width => "100%", :height => "100%" %>
+      <div class="card-body">
+        <h3 class="card-text"><%= tour.title %></h3>
+        <p class="card-text"><%= tour.description %></p>
+        <% if user_signed_in? && current_user.admin? %>
+          <a href="<%= edit_tour_path(tour) %>" class="btn btn-info" role="button">Edit Tour</a>
+          <%= link_to 'Delete', tour_path(tour), method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-info" %>
+        <% end %><br>
+        <% ratings = tour.ratings %>
+        <% ratings.each do |rating| %>
+          <%= rating.user.name %>, <%= rating.stars %>*, <%= rating.comment %><br>
+        <% end %>
+
+        <% unless ratings.pluck(:user_id).include? current_user.id %>
+          <%= form_tag add_rating_tour_path(tour) do %>
+            <%= hidden_field_tag :user_id, current_user.id %>
+
+            Stars: <%= text_field_tag :stars %>
+            Comments: <%= text_field_tag :comment %>
+            <%= submit_tag 'Add rating' %>
+          <% end %>
+        <% end %>
+
+        <% if tour.active? %>
+          <%= form_tag book_tour_path(tour) do %>
+            <%= hidden_field_tag :user_id, current_user.id %>
+
+            No of People: <%= text_field_tag :number_of_people %>
+            Contact Email: <%= text_field_tag :contact_email %>
+            <%= submit_tag 'Book' %>
+          <% end %>
+        <% end %>
+
+      </div>
+    </div><br>
+  <% end %>
+</div>

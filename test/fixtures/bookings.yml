@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  number_of_people: 1
+  contact_email: MyString
+  tour: one
+  user: one
+
+two:
+  number_of_people: 1
+  contact_email: MyString
+  tour: two
+  user: two
