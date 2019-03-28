@@ -1,9 +1,6 @@
 <a href="<%= new_tour_path %>" class="btn btn-info" role="button">New Tour</a>
 <%= form_tag tours_path, method: "get" do %>
-  <%#=# select "filter", "category", options_for_select(), {prompt: 'Select Category'} %>
-
   <%= select_tag("filter", options_for_select([['Tour Reviews', 'tour_reviews'], ['Date of Creation', 'date_of_creation']], params[:filter])) %>
-
   <%= submit_tag "Filter", name: nil %>
 <% end %>
 
