@@ -8,6 +8,8 @@
 
 if User.count < 1
   User.create(email: 'tourist@guruwalk.com', password: 'password', role: 0, name: 'Tourist', mobile: '1111111111')
-  User.create(email: 'guide@guruwalk.com', password: 'password', role: 1, name: 'Admin', mobile: '2222222222')
+  User.create(email: 'guide@guruwalk.com', password: 'password', role: 1, name: 'Guide', mobile: '2222222222')
+  User.create(email: 'guide1@guruwalk.com', password: 'password', role: 1, name: 'Guide 1', mobile: '2222222222')
+  User.create(email: 'guide2@guruwalk.com', password: 'password', role: 1, name: 'Guide 2', mobile: '2222222222')
   User.create(email: 'admin@guruwalk.com', password: 'password', role: 2, name: 'Admin', mobile: '9999999999')
 end
